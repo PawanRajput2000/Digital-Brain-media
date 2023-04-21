@@ -1,9 +1,8 @@
-const {User} = require("../../db")
+const {User} = require("../../db/config")
 const jwtKey = 'token';
-const express = require("express")
-const router = express.Router()
 
-router.post("/login" , async(req,resp)=>{
+
+const login  =  async(req,resp)=>{
     if(req.body.password && req.body.email){
         let user =await  User.findOne({where:{email}})
         if(user){
@@ -22,7 +21,7 @@ router.post("/login" , async(req,resp)=>{
         resp.send({result:"No user found"})
     }
 
-})
+}
 
 
-module.exports={router}
+module.exports={login}

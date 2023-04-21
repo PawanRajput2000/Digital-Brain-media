@@ -8,16 +8,15 @@ const UpdateTodo=()=>{
    
     const [error , setError]= React.useState(false);
     const params = useParams();
-    const navigate = useNavigate();
+   const navigate = useNavigate();
 
     useEffect(()=>{
-       
-        getProductDetails();
+       getTodo();
     },[])
 
-    const getProductDetails = async()=>{
+    const getTodo = async()=>{
         console.warn(params);
-        let result = await fetch(`http://localhost:5000/product/${params.id}`);
+        let result = await fetch(`http://localhost:5000/todo/${params.id}`);
         result= await result.json();
        setTitle(result.title);
        setDescription(result.description);
@@ -28,7 +27,7 @@ const UpdateTodo=()=>{
     const UpdateTodo= async()=>{
         console.warn(title,description,status)
       
-        let result = await fetch(`http://localhost:5000/product/${params.id}` ,{
+        let result = await fetch(`http://localhost:5000/todoUpdate/${params.id}` ,{
             method: 'put',
             body:JSON.stringify( {title, description,status }),
             headers:{
@@ -37,12 +36,12 @@ const UpdateTodo=()=>{
         })
         result = await result.json();
         console.warn(result)
-        navigate('/')
+         navigate('/')
     }
     
     return(
         <div className='product'>
-            <h1>Update Product</h1>
+            <h1>Update TODO</h1>
             <div className="inpu">
             <input type="text" placeholder='Enter product name' className='inputBox' value={title} onChange={(e)=>{setTitle(e.target.value)}} />
            <input type="text" placeholder='Enter product description'  className='inputBox'  value={description} onChange={(e)=>{setDescription(e.target.value)}}/>

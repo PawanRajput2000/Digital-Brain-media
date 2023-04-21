@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Table, Button } from "react-bootstrap";
+import {  Button } from "react-bootstrap";
 
 
 const TodoList = () => {
-  const [products, setProducts] = useState([]);
+  const [todo, setTodo] = useState([]);
 
   useEffect(() => {
-    getProducts();
+    getTodo();
   }, []);
 
-  const getProducts = async () => {
+  const getTodo = async () => {
     let result = await fetch("http://localhost:5000/todoList", {
       headers: {
         authorization: JSON.parse(localStorage.getItem("token")),
       },
     });
     result = await result.json();
-    setProducts(result);
+    setTodo(result);
   };
 
-  const deleteProduct = async (id) => {
-    let result = await fetch(`http://localhost:5000//delete/${id}`, {
+  const deleteTodo = async (id) => {
+    let result = await fetch(`http://localhost:5000/delete/${id}`, {
       method: "delete",
     });
     result = await result.json();
     if (result) {
-      getProducts();
+      getTodo();
     }
   };
 
@@ -40,7 +40,7 @@ const TodoList = () => {
       <table >
         <thead>
           <tr>
-            <th>S.No</th>
+            <th>title</th>
             <th>Task</th>
             <th>status</th>
                 
@@ -48,28 +48,28 @@ const TodoList = () => {
 
         </thead>
 
-        {products.length > 0 ? (
-          products.map((item, index) => (
+        {todo.length > 0 ? (
+          todo.map((item, index) => (
             <tbody>
-              <tr key={item._id}>
-                <td>{index + 1}</td>
-                <td>{item.name}</td>
-                <td>${item.price}</td>
-                <td>{item.category}</td>
+              <tr key={item.id}>
+              <td>{index + 1}</td>
+                <td>{item.title}</td>
+                <td>{item.description}</td>
+                <td>{item.status}</td>
                 {/* <li>{item.company}</li> */}
                 <td>
                   <div className="btns">
                     <div className="btns1">
                       <Button
                         variant="danger"
-                        onClick={() => deleteProduct(item._id)}
+                        onClick={() => deleteTodo(item.id)}
                       >
                         Delete
                       </Button>
                     </div>
                     <div  className="btns1">
                     
-                        <Link to={"/update/" + item._id}><Button variant="primary">Update</Button></Link>
+                        <Link to={"/update/" + item.id}><Button variant="primary">Update</Button></Link>
                      
                     </div>
                   </div>

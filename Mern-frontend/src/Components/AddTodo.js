@@ -15,7 +15,7 @@ const AddTodo=()=>{
       
         console.warn(title, description,status);
         const userId = JSON.parse( localStorage.getItem('user'))._id;
-        let result = await fetch("http://localhost:5000/add-product" ,{
+        let result = await fetch("http://localhost:5000/create" ,{
             method: 'post',
             body:JSON.stringify( {title, description,status , userId}),
             headers:{
@@ -46,7 +46,7 @@ const AddTodo=()=>{
 
             </div>
 
-            <button onClick={addtodo} className='appButton '>Add Product</button>
+            <button onClick={addtodo} className='appButton '>Add TODO</button>
         
         </div>
     )

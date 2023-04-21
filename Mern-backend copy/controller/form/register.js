@@ -1,10 +1,9 @@
-const { User } = require("../../db")
+const { User } = require("../../db/config")
 const jwtKey = 'token';
-const express = require("express")
-const router = express.Router()
 
 
-router.post("http://localhost:5000/register", async (req, resp) => {
+
+const register =  async (req, resp) => {
 
     try {
         const { name, email, password } = req.body;
@@ -21,6 +20,5 @@ router.post("http://localhost:5000/register", async (req, resp) => {
     } catch (err) {
         resp.send("server error")
     }
-})
-
-module.exports = { router }
+}
+module.exports = { register }

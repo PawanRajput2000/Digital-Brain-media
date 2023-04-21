@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "server":"nodemon index.js",
-    "client":"npm start --prefix ./client"
+    "server": "nodemon index.js",
+    "client": "npm start --prefix ./client"
   },
   "author": "",
   "license": "ISC",
